@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/widgets/category.dart';
 import 'login.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -94,7 +95,18 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                
+                Container(
+                  height: 100,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () async {},
+                          child: CategoryWidget(),
+                        );
+                      }),
+                ),
               ],
             ),
           ),
