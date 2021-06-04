@@ -20,10 +20,31 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 300,
+              height: 150,
             ),
-            //TODO: Image
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/logo.png",
+                  width: 128,
+                  height: 128,
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Rocket Delivery',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 32.0,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 35,
+            ),
             //EMAIL Field
             Padding(
               padding: const EdgeInsets.all(12),
