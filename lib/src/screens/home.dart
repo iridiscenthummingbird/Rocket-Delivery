@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
+import 'package:rocket_delivery/src/widgets/featured_products.dart';
 import 'login.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -106,6 +107,30 @@ class HomeScreen extends StatelessWidget {
                           child: CategoryWidget(),
                         );
                       }),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Featured",
+                          style: TextStyle(fontSize: 20, color: Colors.grey))
+                    ],
+                  ),
+                ),
+                Featured(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Popular restaurants",
+                          style: TextStyle(fontSize: 20, color: Colors.grey))
+                    ],
+                  ),
                 ),
               ],
             ),
