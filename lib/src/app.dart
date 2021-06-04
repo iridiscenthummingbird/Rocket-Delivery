@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rocket_delivery/src/screens/login.dart';
+import 'package:rocket_delivery/src/screens/register.dart';
 
 class App extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Login App',
       theme: ThemeData(accentColor: Colors.orange, primaryColor: Colors.red),
-      home: LoginScreen(),
+      home: RegisterScreen(),
     );
   }
 }
