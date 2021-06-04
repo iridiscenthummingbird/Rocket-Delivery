@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:rocket_delivery/main.dart';
 import 'package:rocket_delivery/src/app.dart';
 
 void main() {
