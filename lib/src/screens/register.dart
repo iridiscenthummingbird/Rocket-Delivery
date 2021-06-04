@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/screens/home.dart';
 import 'package:rocket_delivery/src/screens/login.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -10,6 +13,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -28,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
+                    controller: authProvider.name,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Username",
@@ -46,6 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: TextField(
+                    controller: authProvider.email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -65,6 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
+                    controller: authProvider.password,
                     obscureText: true,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -80,7 +88,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   'Register',
                   style: TextStyle(fontSize: 18),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  if (await authProvider.signUp(context)) {
+                    authProvider.clearController();
+                    changeScreen(context, HomeScreen());
+                  }
+                },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         EdgeInsets.only(

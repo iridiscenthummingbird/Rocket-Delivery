@@ -1,7 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/screens/home.dart';
 import 'package:rocket_delivery/src/screens/register.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,11 +11,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _email, _password;
-  final auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -33,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: TextField(
+                    controller: authProvider.email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -52,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
+                    controller: authProvider.password,
                     obscureText: true,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -67,12 +70,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Sign in',
                   style: TextStyle(fontSize: 18),
                 ),
-                onPressed: () {
-                  auth
-                      .signInWithEmailAndPassword(
-                          email: _email, password: _password)
-                      .then((value) => print('success'))
-                      .onError((error, stackTrace) => print('error'));
+                onPressed: () async {
+                  if (await authProvider.signIn(context)) {
+                    authProvider.clearController();
+                    changeScreen(context, HomeScreen());
+                  }
                 },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
