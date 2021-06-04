@@ -4,6 +4,7 @@ import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
 import 'package:rocket_delivery/src/widgets/featured_products.dart';
+import 'package:rocket_delivery/src/widgets/restaurant.dart';
 import 'login.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -132,6 +133,28 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                Column(
+                  children: ['1', '2', '3'] //restaurantProvider.restaurants
+                      .map((item) => GestureDetector(
+                            onTap: () async {
+                              // app.changeLoading();
+
+                              // await productProvider.loadProductsByRestaurant(
+                              //     restaurantId: item.id);
+                              // app.changeLoading();
+
+                              // changeScreen(
+                              //     context,
+                              //     RestaurantScreen(
+                              //       restaurantModel: item,
+                              //     ));
+                            },
+                            child: RestaurantWidget(
+                                //restaurant: item,
+                                ),
+                          ))
+                      .toList(),
+                )
               ],
             ),
           ),

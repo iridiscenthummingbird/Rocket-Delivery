@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -65,18 +64,6 @@ class Featured extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Text("Burger"),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: GestureDetector(
-                                onTap: () {
-//                                  setState(() {
-//                                    productProvider.products[index].liked = !productProvider.products[index].liked;
-//                                  });
-//                                  productProvider.likeDislikeProduct(userId: user.userModel.id, product: productProvider.products[index], liked: productProvider.products[index].liked);
-                                },
-                                child: Container(),
-                              ),
-                            )
                           ],
                         ),
                         Row(
