@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/screens/login.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -72,10 +74,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-            //SIGN-IN Button
+            //Register Button
             ElevatedButton(
                 child: Text(
-                  'Sign in',
+                  'Register',
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {},
@@ -90,7 +92,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderRadius: BorderRadius.circular(18.0))))),
             //LOG IN Button
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  changeScreen(context, LoginScreen());
+                },
                 child: Text(
                   'Log in here',
                   style: TextStyle(color: Colors.grey),

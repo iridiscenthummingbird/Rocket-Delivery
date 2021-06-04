@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/screens/register.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -83,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(18.0))))),
             //REGISTER Button
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  changeScreen(context, RegisterScreen());
+                },
                 child: Text(
                   'Register here',
                   style: TextStyle(color: Colors.grey),
