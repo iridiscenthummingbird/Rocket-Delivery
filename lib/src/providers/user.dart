@@ -12,6 +12,8 @@ class UserProvider with ChangeNotifier {
 
   final formkey = GlobalKey<FormState>();
 
+  Status get status => _status;
+
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController name = TextEditingController();

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/screens/home.dart';
 import 'package:rocket_delivery/src/screens/login.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ void main() async {
       ChangeNotifierProvider.value(value: UserProvider.initialize()),
     ],
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Rocket Delivery",
       theme: ThemeData(primaryColor: Colors.red),
       home: ScreensController(),
@@ -22,6 +24,17 @@ void main() async {
 class ScreensController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    final auth = Provider.of<UserProvider>(context);
+    switch (auth.status) {
+      case Status.Uninitialized:
+      //return Splash();
+      case Status.Unauthenticated:
+      case Status.Authenticating:
+        return LoginScreen();
+      case Status.Authenticated:
+        return HomeScreen();
+      default:
+        return LoginScreen();
+    }
   }
 }
