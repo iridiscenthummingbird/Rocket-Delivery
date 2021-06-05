@@ -24,8 +24,8 @@ class Featured extends StatelessWidget {
                     changeScreen(
                         _,
                         Details(
-                            //product: productProvider.products[index],
-                            ));
+                          product: productProvider.products[index],
+                        ));
                   },
                   child: Container(
                     height: 220,

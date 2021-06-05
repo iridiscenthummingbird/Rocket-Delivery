@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/models/product.dart';
 
 class Details extends StatefulWidget {
-  //  final ProductModel product;
-  // const Details({@required this.product});
+  final ProductModel product;
+  const Details({@required this.product});
   @override
   _DetailsState createState() => _DetailsState();
 }
@@ -44,18 +45,17 @@ class _DetailsState extends State<Details> {
           children: <Widget>[
             CircleAvatar(
               radius: 120,
-              backgroundImage: NetworkImage(
-                  "https://www.mycuisine.com/wp-content/uploads/2018/12/burger-rossini.jpg"),
+              backgroundImage: NetworkImage(widget.product.image),
             ),
             SizedBox(
               height: 15,
             ),
             Text(
-              "Burger",
+              widget.product.name,
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             Text(
-              "\$5.7",
+              "\$" + widget.product.price.toString(),
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
             SizedBox(
@@ -68,10 +68,10 @@ class _DetailsState extends State<Details> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Description...",
+                widget.product.description,
                 textAlign: TextAlign.center,
                 style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w300),
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
               ),
             ),
             SizedBox(

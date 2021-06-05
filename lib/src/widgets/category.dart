@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/models/category.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'loading.dart';
 
 class CategoryWidget extends StatelessWidget {
+  final CategoryModel category;
+
+  const CategoryWidget({Key key, this.category}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,8 +29,7 @@ class CategoryWidget extends StatelessWidget {
                     Center(
                       child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image:
-                              "https://img.static-rmg.be/a/food/image/q75/w640/h400/1077806/pizza.jpg"),
+                          image: category.image),
                     )
                   ],
                 )),
@@ -57,7 +60,7 @@ class CategoryWidget extends StatelessWidget {
               child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Italian",
+                    category.name,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 26.0,

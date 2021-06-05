@@ -11,6 +11,7 @@ class ProductServices {
         result.docs.forEach((doc) {
           products.add(ProductModel.fromSnapshot(doc));
         });
+        products.sort((a, b) => b.rating.compareTo(a.rating));
         return products;
       });
 

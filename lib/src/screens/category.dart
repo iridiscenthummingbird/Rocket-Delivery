@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/models/category.dart';
 import 'package:rocket_delivery/src/screens/details.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:rocket_delivery/src/widgets/product.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CategoryScreen extends StatelessWidget {
+  final CategoryModel categoryModel;
+
+  const CategoryScreen({Key key, this.categoryModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +26,7 @@ class CategoryScreen extends StatelessWidget {
               ClipRRect(
                 child: FadeInImage.memoryNetwork(
                   placeholder: kTransparentImage,
-                  image:
-                      "https://img.static-rmg.be/a/food/image/q75/w640/h400/1077806/pizza.jpg",
+                  image: categoryModel.image,
                   height: 160,
                   fit: BoxFit.cover,
                   width: double.infinity,
@@ -51,7 +54,7 @@ class CategoryScreen extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        "Italian",
+                        categoryModel.name,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 26.0,
@@ -87,11 +90,11 @@ class CategoryScreen extends StatelessWidget {
             children: [1, 2, 3] //productProvider.productsByCategory
                 .map((item) => GestureDetector(
                       onTap: () {
-                        changeScreen(
-                            context,
-                            Details(
-                                //product: item,
-                                ));
+                        // changeScreen(
+                        //     context,
+                        //     Details(
+                        //         //product: item,
+                        //         ));
                       },
                       child: ProductWidget(
                           //product: item,

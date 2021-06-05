@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/providers/category.dart';
 import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/cart.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
-
+    final categoryProvider = Provider.of<CategoryProvider>(context);
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -107,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                   height: 100,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: categoryProvider.categories.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () async {
@@ -118,11 +119,13 @@ class HomeScreen extends StatelessWidget {
                             changeScreen(
                                 context,
                                 CategoryScreen(
-                                    // categoryModel:
-                                    //     categoryProvider.categories[index],
-                                    ));
+                                  categoryModel:
+                                      categoryProvider.categories[index],
+                                ));
                           },
-                          child: CategoryWidget(),
+                          child: CategoryWidget(
+                            category: categoryProvider.categories[index],
+                          ),
                         );
                       }),
                 ),
