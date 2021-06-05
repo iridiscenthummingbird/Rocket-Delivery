@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/models/restaurant.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:rocket_delivery/src/widgets/product.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -7,6 +8,9 @@ import 'package:transparent_image/transparent_image.dart';
 import 'details.dart';
 
 class RestaurantScreen extends StatelessWidget {
+  final RestaurantModel restaurantModel;
+
+  const RestaurantScreen({Key key, this.restaurantModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +33,9 @@ class RestaurantScreen extends StatelessWidget {
                 ),
                 child: FadeInImage.memoryNetwork(
                   placeholder: kTransparentImage,
-                  image:
-                      "https://images.squarespace-cdn.com/content/v1/53bedc63e4b051fad94ee1f7/1405355273020-ZSROMKAI2XQ296A8UZ32/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/0006.jpg?format=2500w", //restaurantModel.image,
+                  image: restaurantModel.image,
                   height: 160,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   width: double.infinity,
                 ),
               ),
@@ -66,7 +69,7 @@ class RestaurantScreen extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        "Restaurant",
+                        restaurantModel.name,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 26,
@@ -79,7 +82,8 @@ class RestaurantScreen extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        "Average Price: \$15.5",
+                        "Average Price: \$" +
+                            restaurantModel.avgPrice.toString(),
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -109,7 +113,7 @@ class RestaurantScreen extends StatelessWidget {
                                 size: 20,
                               ),
                             ),
-                            Text("4.5"),
+                            Text(restaurantModel.rating.toString()),
                           ],
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/cart.dart';
 import 'package:rocket_delivery/src/screens/category.dart';
@@ -14,6 +15,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
+    final restaurantProvider = Provider.of<RestaurantProvider>(context);
+
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -148,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Column(
-                  children: ['1', '2', '3'] //restaurantProvider.restaurants
+                  children: restaurantProvider.restaurants
                       .map((item) => GestureDetector(
                             onTap: () async {
                               // app.changeLoading();
@@ -160,12 +163,12 @@ class HomeScreen extends StatelessWidget {
                               changeScreen(
                                   context,
                                   RestaurantScreen(
-                                      //restaurantModel: item,
-                                      ));
+                                    restaurantModel: item,
+                                  ));
                             },
                             child: RestaurantWidget(
-                                //restaurant: item,
-                                ),
+                              restaurant: item,
+                            ),
                           ))
                       .toList(),
                 )

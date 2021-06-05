@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/models/restaurant.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class RestaurantWidget extends StatelessWidget {
+  final RestaurantModel restaurant;
+
+  const RestaurantWidget({Key key, this.restaurant}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 2, left: 2, right: 2, bottom: 4),
       child: Stack(
         children: <Widget>[
-          _backgroundImage(
-              "https://images.squarespace-cdn.com/content/v1/53bedc63e4b051fad94ee1f7/1405355273020-ZSROMKAI2XQ296A8UZ32/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/0006.jpg?format=2500w"),
+          _backgroundImage(restaurant.image),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -34,7 +38,7 @@ class RestaurantWidget extends StatelessWidget {
                             size: 20,
                           ),
                         ),
-                        Text("4.3"),
+                        Text(restaurant.rating.toString()),
                       ],
                     ),
                   ),
@@ -78,7 +82,7 @@ class RestaurantWidget extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                          text: "Restaurant\n",
+                          text: "${restaurant.name}\n",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                       TextSpan(
@@ -86,7 +90,8 @@ class RestaurantWidget extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w300)),
                       TextSpan(
-                          text: "\$15.4 \n", style: TextStyle(fontSize: 16)),
+                          text: "\$${restaurant.avgPrice} \n",
+                          style: TextStyle(fontSize: 16)),
                     ], style: TextStyle(color: Colors.white)),
                   ),
                 ),
@@ -125,11 +130,9 @@ class RestaurantWidget extends StatelessWidget {
                   child: Container(height: 120, child: Loading()),
                 )),
                 Center(
-                  child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image:
-                          "https://images.squarespace-cdn.com/content/v1/53bedc63e4b051fad94ee1f7/1405355273020-ZSROMKAI2XQ296A8UZ32/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/0006.jpg?format=2500w"),
-                )
+                    child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: restaurant.image))
               ],
             )),
       );
