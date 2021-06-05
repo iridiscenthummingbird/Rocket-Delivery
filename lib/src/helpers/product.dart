@@ -15,18 +15,18 @@ class ProductServices {
         return products;
       });
 
-  // Future<List<ProductModel>> getProductsByRestaurant({String id}) async =>
-  //     _firestore
-  //         .collection(collection)
-  //         .where("restaurantId", isEqualTo: id)
-  //         .getDocuments()
-  //         .then((result) {
-  //       List<ProductModel> products = [];
-  //       for (DocumentSnapshot product in result.documents) {
-  //         products.add(ProductModel.fromSnapshot(product));
-  //       }
-  //       return products;
-  //     });
+  Future<List<ProductModel>> getProductsByRestaurant({String id}) async =>
+      _firestore
+          .collection(collection)
+          .where("restaurantId", isEqualTo: id)
+          .get()
+          .then((result) {
+        List<ProductModel> products = [];
+        result.docs.forEach((doc) {
+          products.add(ProductModel.fromSnapshot(doc));
+        });
+        return products;
+      });
 
   Future<List<ProductModel>> getProductsOfCategory({String category}) async =>
       _firestore

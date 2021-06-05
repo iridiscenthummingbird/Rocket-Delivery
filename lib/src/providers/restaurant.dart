@@ -18,10 +18,10 @@ class RestaurantProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // loadSingleRestaurant({String retaurantId}) async{
-  //   restaurant = await _restaurantServices.getRestaurantById(id: retaurantId);
-  //   notifyListeners();
-  // }
+  loadSingleRestaurant({String retaurantId}) async {
+    restaurant = await _restaurantServices.getRestaurantById(id: retaurantId);
+    notifyListeners();
+  }
 
   // Future search({String name})async{
   //   searchedRestaurants = await _restaurantServices.searchRestaurant(restaurantName: name);

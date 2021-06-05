@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/models/product.dart';
+import 'package:rocket_delivery/src/providers/product.dart';
+import 'package:rocket_delivery/src/providers/restaurant.dart';
+import 'package:rocket_delivery/src/screens/restaurant.dart';
 
 class ProductWidget extends StatelessWidget {
   final ProductModel product;
@@ -7,6 +12,8 @@ class ProductWidget extends StatelessWidget {
   const ProductWidget({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final restaurantProvider = Provider.of<RestaurantProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 10),
       child: Container(
@@ -66,17 +73,16 @@ class ProductWidget extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            // await productProvider.loadProductsByRestaurant(
-                            //     restaurantId:
-                            //         product.restaurantId.toString());
-                            // await restaurantProvider.loadSingleRestaurant(
-                            //     retaurantId: product.restaurantId.toString());
-                            // changeScreen(
-                            //     context,
-                            //     RestaurantScreen(
-                            //       restaurantModel:
-                            //           restaurantProvider.restaurant,
-                            //     ));
+                            await productProvider.loadProductsByRestaurant(
+                                restaurantId: product.restaurantId.toString());
+                            await restaurantProvider.loadSingleRestaurant(
+                                retaurantId: product.restaurantId.toString());
+                            changeScreen(
+                                context,
+                                RestaurantScreen(
+                                  restaurantModel:
+                                      restaurantProvider.restaurant,
+                                ));
                           },
                           child: Text(
                             product.restaurant,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/models/restaurant.dart';
+import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:rocket_delivery/src/widgets/product.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -13,6 +15,9 @@ class RestaurantScreen extends StatelessWidget {
   const RestaurantScreen({Key key, this.restaurantModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    productProvider.loadProductsByRestaurant(restaurantId: restaurantModel.id);
+
     return Scaffold(
       body: SafeArea(
           child: ListView(
@@ -167,21 +172,19 @@ class RestaurantScreen extends StatelessWidget {
                       label: Text("Book Now")))
             ],
           ),
-
-          // products
           Column(
-            children: [1, 2, 3, 4] //productProvider.productsByRestaurant
+            children: productProvider.productsByRestaurant
                 .map((item) => GestureDetector(
                       onTap: () {
-                        // changeScreen(
-                        //     context,
-                        //     Details(
-                        //         //product: item,
-                        //         ));
+                        changeScreen(
+                            context,
+                            Details(
+                              product: item,
+                            ));
                       },
                       child: ProductWidget(
-                          //product: item,
-                          ),
+                        product: item,
+                      ),
                     ))
                 .toList(),
           )

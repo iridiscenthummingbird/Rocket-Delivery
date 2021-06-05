@@ -11,19 +11,13 @@ class RestaurantServices {
         result.docs.forEach((doc) {
           restaurants.add(RestaurantModel.fromSnapshot(doc));
         });
-        // for(DocumentSnapshot restaurant in result.documents){
-        //   restaurants.add(RestaurantModel.fromSnapshot(restaurant));
-        // }
         return restaurants;
       });
 
-  // Future<RestaurantModel> getRestaurantById({String id}) => _firestore
-  //         .collection(collection)
-  //         .document(id.toString())
-  //         .get()
-  //         .then((doc) {
-  //       return RestaurantModel.fromSnapshot(doc);
-  //     });
+  Future<RestaurantModel> getRestaurantById({String id}) =>
+      _firestore.collection(collection).doc(id.toString()).get().then((doc) {
+        return RestaurantModel.fromSnapshot(doc);
+      });
 
   // Future<List<RestaurantModel>> searchRestaurant({String restaurantName}) {
   //   // code to convert the first character to uppercase
