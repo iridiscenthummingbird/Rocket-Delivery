@@ -2,16 +2,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rocket_delivery/src/helpers/user.dart';
+import 'package:rocket_delivery/src/models/user.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
 class UserProvider with ChangeNotifier {
   FirebaseAuth _auth;
   Status _status = Status.Uninitialized;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User _user;
+  UserServices _userService = UserServices();
+  UserModel _userModel;
 
   final formkey = GlobalKey<FormState>();
 
+  UserModel get userModel => _userModel;
   Status get status => _status;
 
   TextEditingController email = TextEditingController();
@@ -28,6 +35,7 @@ class UserProvider with ChangeNotifier {
     } else {
       _user = firebaseUser;
       _status = Status.Authenticated;
+      _userModel = await _userService.getUserById(_user.uid);
     }
     notifyListeners();
   }
@@ -58,13 +66,8 @@ class UserProvider with ChangeNotifier {
           .createUserWithEmailAndPassword(
               email: email.text.trim(), password: password.text.trim())
           .then((result) {
-        // _firestore.collection('users').document(result.user.uid).setData({
-        //   'name':name.text,
-        //   'email':email.text,
-        //   'uid':result.user.uid,
-        //   "likedFood": [],
-        //   "likedRestaurants": []
-        // });
+        _firestore.collection('users').doc(result.user.uid).set(
+            {'name': name.text, 'email': email.text, 'uid': result.user.uid});
       });
       return true;
     } catch (e) {
@@ -72,7 +75,6 @@ class UserProvider with ChangeNotifier {
       notifyListeners();
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
-      //print(e.toString());
       return false;
     }
   }

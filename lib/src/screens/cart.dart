@@ -15,7 +15,10 @@ class _CartScreenState extends State<CartScreen> {
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text("Shopping Cart"),
+        title: Text(
+          "Shopping Cart",
+          style: TextStyle(color: Colors.black),
+        ),
         leading: IconButton(
             icon: Icon(Icons.close),
             onPressed: () {

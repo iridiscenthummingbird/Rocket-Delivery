@@ -193,19 +193,18 @@ class HomeScreen extends StatelessWidget {
             children: <Widget>[
               UserAccountsDrawerHeader(
                   decoration: BoxDecoration(color: Colors.red),
-                  accountName: Text('Name'),
-                  // CustomText(
-                  //   text: user.userModel?.name ?? "username lading...",
-                  //   color: white,
-                  //   weight: FontWeight.bold,
-                  //   size: 18,
-                  // ),
-                  accountEmail: Text('Email')
-                  // CustomText(
-                  //   text: user.userModel?.email ?? "email loading...",
-                  //   color: white,
-                  // ),
+                  accountName: Text(
+                    user.userModel?.name ?? "Username is loading...",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
+                  accountEmail:
+                      Text(user.userModel?.email ?? "email loading...",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ))),
               ListTile(
                 onTap: () {
                   changeScreen(context, HomeScreen());
