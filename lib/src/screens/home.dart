@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/screens/category.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
 import 'package:rocket_delivery/src/widgets/featured_products.dart';
 import 'package:rocket_delivery/src/widgets/restaurant.dart';
@@ -104,7 +105,18 @@ class HomeScreen extends StatelessWidget {
                       itemCount: 5,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () async {},
+                          onTap: () async {
+                            // await productProvider.loadProductsByCategory(
+                            //       categoryName:
+                            //           categoryProvider.categories[index].name);
+
+                            changeScreen(
+                                context,
+                                CategoryScreen(
+                                    // categoryModel:
+                                    //     categoryProvider.categories[index],
+                                    ));
+                          },
                           child: CategoryWidget(),
                         );
                       }),
@@ -128,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Popular restaurants",
+                      Text("Restaurants",
                           style: TextStyle(fontSize: 20, color: Colors.grey))
                     ],
                   ),
