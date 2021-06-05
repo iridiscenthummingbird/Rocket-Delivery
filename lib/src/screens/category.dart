@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/models/category.dart';
+import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/screens/details.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:rocket_delivery/src/widgets/product.dart';
@@ -12,6 +14,8 @@ class CategoryScreen extends StatelessWidget {
   const CategoryScreen({Key key, this.categoryModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    productProvider.loadProductsByCategory(categoryName: categoryModel.name);
     return Scaffold(
       body: SafeArea(
           child: ListView(
@@ -87,18 +91,18 @@ class CategoryScreen extends StatelessWidget {
             height: 10,
           ),
           Column(
-            children: [1, 2, 3] //productProvider.productsByCategory
+            children: productProvider.productsByCategory
                 .map((item) => GestureDetector(
                       onTap: () {
-                        // changeScreen(
-                        //     context,
-                        //     Details(
-                        //         //product: item,
-                        //         ));
+                        changeScreen(
+                            context,
+                            Details(
+                              product: item,
+                            ));
                       },
                       child: ProductWidget(
-                          //product: item,
-                          ),
+                        product: item,
+                      ),
                     ))
                 .toList(),
           )

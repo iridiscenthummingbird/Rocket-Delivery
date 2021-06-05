@@ -18,11 +18,11 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future loadProductsByCategory({String categoryName}) async {
-  //   productsByCategory =
-  //       await _productServices.getProductsOfCategory(category: categoryName);
-  //   notifyListeners();
-  // }
+  Future loadProductsByCategory({String categoryName}) async {
+    productsByCategory =
+        await _productServices.getProductsOfCategory(category: categoryName);
+    notifyListeners();
+  }
 
   // Future loadProductsByRestaurant({String restaurantId}) async {
   //   productsByRestaurant =

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/models/product.dart';
 
 class ProductWidget extends StatelessWidget {
+  final ProductModel product;
+
+  const ProductWidget({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +31,7 @@ class ProductWidget extends StatelessWidget {
                   topLeft: Radius.circular(20),
                 ),
                 child: Image.network(
-                  "https://www.mycuisine.com/wp-content/uploads/2018/12/burger-rossini.jpg",
+                  product.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -36,33 +40,11 @@ class ProductWidget extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Burger")),
-                      Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey[300],
-                                    offset: Offset(1, 1),
-                                    blurRadius: 4),
-                              ]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 18,
-                            ),
-                          ),
-                        ),
-                      )
+                          padding: const EdgeInsets.all(14.0),
+                          child: Text(product.name)),
                     ],
                   ),
                   SizedBox(
@@ -97,7 +79,7 @@ class ProductWidget extends StatelessWidget {
                             //     ));
                           },
                           child: Text(
-                            "Restaurant",
+                            product.restaurant,
                             style: TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.w300,
@@ -115,7 +97,7 @@ class ProductWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
-                              "4.5",
+                              product.rating.toString(),
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 14),
                             ),
@@ -153,7 +135,7 @@ class ProductWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Text(
-                          "\$12.5",
+                          "\$" + product.price.toString(),
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
