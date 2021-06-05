@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/screens/cart.dart';
 import 'package:rocket_delivery/src/screens/category.dart';
 import 'package:rocket_delivery/src/screens/restaurant.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
@@ -178,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.shopping_cart),
                       onPressed: () {
-                        //changeScreen(context, CartScreen());
+                        changeScreen(context, CartScreen());
                       },
                     ),
                   ],
@@ -222,7 +223,7 @@ class HomeScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  //changeScreen(context, CartScreen());
+                  changeScreen(context, CartScreen());
                 },
                 leading: Icon(Icons.shopping_cart),
                 title: Text("Cart"),
