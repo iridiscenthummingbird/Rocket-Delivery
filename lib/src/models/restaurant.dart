@@ -17,7 +17,6 @@ class RestaurantModel {
     Map<String, dynamic> data = snapshot.data();
     _id = data['id'];
     _name = data['name'];
-    print(data['image']);
     _image = data['image'];
     _avgPrice = double.parse(data['avgPrice']);
     _rating = double.parse(data['rating']);

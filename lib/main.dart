@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/home.dart';
@@ -13,6 +14,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider.value(value: UserProvider.initialize()),
       ChangeNotifierProvider.value(value: RestaurantProvider.initialize()),
+      ChangeNotifierProvider.value(value: ProductProvider.initialize()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
