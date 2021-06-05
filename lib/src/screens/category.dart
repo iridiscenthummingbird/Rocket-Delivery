@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/screens/details.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
+import 'package:rocket_delivery/src/widgets/product.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -81,21 +84,21 @@ class CategoryScreen extends StatelessWidget {
             height: 10,
           ),
           Column(
-              // children: productProvider.productsByCategory
-              //     .map((item) => GestureDetector(
-              //           onTap: () {
-              //             changeScreen(
-              //                 context,
-              //                 Details(
-              //                   product: item,
-              //                 ));
-              //           },
-              //           child: ProductWidget(
-              //             product: item,
-              //           ),
-              //         ))
-              //     .toList(),
-              )
+            children: [1, 2, 3] //productProvider.productsByCategory
+                .map((item) => GestureDetector(
+                      onTap: () {
+                        changeScreen(
+                            context,
+                            Details(
+                                //product: item,
+                                ));
+                      },
+                      child: ProductWidget(
+                          //product: item,
+                          ),
+                    ))
+                .toList(),
+          )
         ],
       )),
     );
