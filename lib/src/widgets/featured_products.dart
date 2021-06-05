@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
+import 'package:rocket_delivery/src/screens/details.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -15,11 +17,11 @@ class Featured extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(12, 14, 16, 12),
                 child: GestureDetector(
                   onTap: () {
-                    // changeScreen(
-                    //     _,
-                    //     Details(
-                    //       product: productProvider.products[index],
-                    //     ));
+                    changeScreen(
+                        _,
+                        Details(
+                            //product: productProvider.products[index],
+                            ));
                   },
                   child: Container(
                     height: 220,
