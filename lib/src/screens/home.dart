@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/category.dart';
+import 'package:rocket_delivery/src/screens/restaurant.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
 import 'package:rocket_delivery/src/widgets/featured_products.dart';
 import 'package:rocket_delivery/src/widgets/restaurant.dart';
@@ -155,11 +156,11 @@ class HomeScreen extends StatelessWidget {
                               //     restaurantId: item.id);
                               // app.changeLoading();
 
-                              // changeScreen(
-                              //     context,
-                              //     RestaurantScreen(
-                              //       restaurantModel: item,
-                              //     ));
+                              changeScreen(
+                                  context,
+                                  RestaurantScreen(
+                                      //restaurantModel: item,
+                                      ));
                             },
                             child: RestaurantWidget(
                                 //restaurant: item,
