@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rocket_delivery/src/models/cart_item.dart';
+import 'package:rocket_delivery/src/models/order.dart';
 import 'package:rocket_delivery/src/models/product.dart';
 import 'package:rocket_delivery/src/models/user.dart';
+import 'package:rocket_delivery/src/services/order.dart';
 import 'package:rocket_delivery/src/services/user.dart';
 import 'package:uuid/uuid.dart';
 
@@ -18,11 +20,15 @@ class UserProvider with ChangeNotifier {
   User _user;
   UserServices _userService = UserServices();
   UserModel _userModel;
+  OrderServices _orderServices = OrderServices();
+
+  List<OrderModel> orders = [];
 
   final formkey = GlobalKey<FormState>();
 
   UserModel get userModel => _userModel;
   Status get status => _status;
+  User get user => _user;
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -137,6 +143,11 @@ class UserProvider with ChangeNotifier {
 
   Future<void> reloadUserModel() async {
     _userModel = await _userService.getUserById(_user.uid);
+    notifyListeners();
+  }
+
+  getOrders() async {
+    orders = await _orderServices.getUserOrders(userId: _user.uid);
     notifyListeners();
   }
 }

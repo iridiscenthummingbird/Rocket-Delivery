@@ -5,6 +5,7 @@ import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/cart.dart';
 import 'package:rocket_delivery/src/screens/category.dart';
+import 'package:rocket_delivery/src/screens/orders.dart';
 import 'package:rocket_delivery/src/screens/restaurant.dart';
 import 'package:rocket_delivery/src/services/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
@@ -220,8 +221,8 @@ class HomeScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () async {
-                  //await user.getOrders();
-                  //changeScreen(context, OrdersScreen());
+                  await user.getOrders();
+                  changeScreen(context, OrdersScreen());
                 },
                 leading: Icon(Icons.bookmark_border),
                 title: Text("My orders"),

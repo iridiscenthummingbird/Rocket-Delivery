@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/models/cart_item.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/services/order.dart';
+import 'package:uuid/uuid.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -10,6 +12,8 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final _key = GlobalKey<ScaffoldState>();
+  OrderServices _orderServices = OrderServices();
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
@@ -190,6 +194,24 @@ class _CartScreenState extends State<CartScreen> {
                                         )),
                                     TextButton(
                                         onPressed: () async {
+                                          var uuid = Uuid();
+                                          String id = uuid.v4();
+                                          String desc = '';
+                                          user.userModel.cart
+                                              .forEach((element) {
+                                            desc += element.name + ', ';
+                                          });
+                                          desc = desc.substring(
+                                              0, desc.length - 2);
+                                          _orderServices.createOrder(
+                                              userId: user.user.uid,
+                                              id: id,
+                                              description: desc,
+                                              status: "Complete",
+                                              totalPrice:
+                                                  user.userModel.totalCartPrice,
+                                              cart: user.userModel.cart);
+
                                           for (CartItemModel cartItem
                                               in user.userModel.cart) {
                                             bool value =
