@@ -56,7 +56,9 @@ class Featured extends StatelessWidget {
                                 child: FadeInImage.memoryNetwork(
                                   placeholder: kTransparentImage,
                                   image: productProvider.products[index].image,
+                                  fit: BoxFit.cover,
                                   height: 126,
+                                  width: double.infinity,
                                 ),
                               )
                             ],
