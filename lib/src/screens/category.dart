@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/models/category.dart';
 import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/screens/details.dart';
+import 'package:rocket_delivery/src/services/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:rocket_delivery/src/widgets/product.dart';
 import 'package:transparent_image/transparent_image.dart';

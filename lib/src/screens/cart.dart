@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rocket_delivery/src/providers/user.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class _CartScreenState extends State<CartScreen> {
   final _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -26,9 +30,10 @@ class _CartScreenState extends State<CartScreen> {
             }),
       ),
       backgroundColor: Colors.white,
-      //body: app.isLoading ? Loading() : ListView.builder(
       body: ListView.builder(
-          itemCount: 5,
+          itemCount: user.userModel.cart.length == null
+              ? 0
+              : user.userModel.cart.length,
           itemBuilder: (_, index) {
             return Padding(
               padding: const EdgeInsets.all(16),
@@ -51,8 +56,7 @@ class _CartScreenState extends State<CartScreen> {
                         topLeft: Radius.circular(20),
                       ),
                       child: Image.network(
-                        "https://www.mycuisine.com/wp-content/uploads/2018/12/burger-rossini.jpg",
-                        //user.userModel.cart[index].image,
+                        user.userModel.cart[index].image,
                         height: 120,
                         width: 140,
                         fit: BoxFit.cover,
@@ -68,13 +72,14 @@ class _CartScreenState extends State<CartScreen> {
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: "Burger" + "\n",
+                                  text: user.userModel.cart[index].name + "\n",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
                               TextSpan(
-                                  text: "\$${12.5} \n\n",
+                                  text:
+                                      "\$${user.userModel.cart[index].price} \n\n",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
@@ -86,7 +91,8 @@ class _CartScreenState extends State<CartScreen> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400)),
                               TextSpan(
-                                  text: "5",
+                                  text: user.userModel.cart[index].quantity
+                                      .toString(),
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontSize: 16,
@@ -99,20 +105,15 @@ class _CartScreenState extends State<CartScreen> {
                                 color: Colors.red,
                               ),
                               onPressed: () async {
-                                // app.changeLoading();
-                                // bool value = await user.removeFromCart(cartItem: user.userModel.cart[index]);
-                                // if(value){
-                                //   user.reloadUserModel();
-                                //   print("Item added to cart");
-                                //   _key.currentState.showSnackBar(
-                                //       SnackBar(content: Text("Removed from Cart!"))
-                                //   );
-                                //   app.changeLoading();
-                                //   return;
-                                // }else{
-                                //   print("ITEM WAS NOT REMOVED");
-                                //   app.changeLoading();
-                                // }
+                                bool value = await user.removeFromCart(
+                                    cartItem: user.userModel.cart[index]);
+                                if (value) {
+                                  user.reloadUserModel();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text("Removed from the Cart!")));
+                                }
                               })
                         ],
                       ),
@@ -138,7 +139,7 @@ class _CartScreenState extends State<CartScreen> {
                           fontSize: 22,
                           fontWeight: FontWeight.w400)),
                   TextSpan(
-                      text: " \$${52}",
+                      text: " \$${user.userModel.totalCartPrice}",
                       style: TextStyle(
                           color: Colors.red,
                           fontSize: 22,
@@ -151,15 +152,14 @@ class _CartScreenState extends State<CartScreen> {
                 child: FlatButton(
                     //TODO: change button
                     onPressed: () {
-                      //if (user.userModel.totalCartPrice == 0) {
-                      if (false) {
+                      print(user.userModel.totalCartPrice.toString());
+                      if (user.userModel.totalCartPrice == 0) {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20.0)), //this right here
+                                    borderRadius: BorderRadius.circular(20.0)),
                                 child: Container(
                                   height: 200,
                                   child: Padding(
@@ -186,7 +186,6 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               );
                             });
-                        //return;
                       } else {
                         showDialog(
                             context: context,

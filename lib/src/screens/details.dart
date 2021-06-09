@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/models/product.dart';
+import 'package:rocket_delivery/src/providers/user.dart';
+import 'package:rocket_delivery/src/screens/cart.dart';
+import 'package:rocket_delivery/src/services/screen_navigation.dart';
 
 class Details extends StatefulWidget {
   final ProductModel product;
@@ -14,8 +18,7 @@ class _DetailsState extends State<Details> {
 
   @override
   Widget build(BuildContext context) {
-    // final user = Provider.of<UserProvider>(context);
-    // final app = Provider.of<AppProvider>(context);
+    final user = Provider.of<UserProvider>(context);
 
     return Scaffold(
       key: _key,
@@ -27,7 +30,7 @@ class _DetailsState extends State<Details> {
           IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
-              //changeScreen(context, CartScreen());
+              changeScreen(context, CartScreen());
             },
           ),
         ],
@@ -39,7 +42,6 @@ class _DetailsState extends State<Details> {
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
-        //child: app.isLoading ? Loading() : Column(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -86,6 +88,7 @@ class _DetailsState extends State<Details> {
                       icon: Icon(
                         Icons.remove,
                         size: 36,
+                        color: quantity > 1 ? Colors.red : Colors.grey,
                       ),
                       onPressed: () {
                         if (quantity != 1) {
@@ -97,32 +100,19 @@ class _DetailsState extends State<Details> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    // app.changeLoading();
-                    // print("All set loading");
-
-                    // bool value = await user.addToCard(
-                    //     product: widget.product, quantity: quantity);
-                    // if (value) {
-                    //   print("Item added to cart");
-                    //   _key.currentState.showSnackBar(
-                    //       SnackBar(content: Text("Added ro Cart!")));
-                    //   user.reloadUserModel();
-                    //   app.changeLoading();
-                    //   return;
-                    // } else {
-                    //   print("Item NOT added to cart");
-                    // }
-                    // print("lOADING SET TO FALSE");
+                    bool value = await user.addToCard(
+                        product: widget.product, quantity: quantity);
+                    if (value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Added to the Cart!")));
+                      user.reloadUserModel();
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20)),
-                    child:
-                        //app.isLoading
-                        //? Loading()
-                        //:
-                        Padding(
+                    child: Padding(
                       padding: const EdgeInsets.fromLTRB(28, 12, 28, 12),
                       child: Text(
                         "Add $quantity To Cart",

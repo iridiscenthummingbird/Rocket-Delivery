@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/models/product.dart';
 import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/screens/restaurant.dart';
+import 'package:rocket_delivery/src/services/screen_navigation.dart';
 
 class ProductWidget extends StatelessWidget {
   final ProductModel product;

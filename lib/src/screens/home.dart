@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rocket_delivery/src/helpers/screen_navigation.dart';
 import 'package:rocket_delivery/src/providers/category.dart';
 import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/cart.dart';
 import 'package:rocket_delivery/src/screens/category.dart';
 import 'package:rocket_delivery/src/screens/restaurant.dart';
+import 'package:rocket_delivery/src/services/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
 import 'package:rocket_delivery/src/widgets/featured_products.dart';
 import 'package:rocket_delivery/src/widgets/restaurant.dart';

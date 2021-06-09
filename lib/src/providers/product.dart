@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helpers/product.dart';
+import 'package:rocket_delivery/src/services/product.dart';
 import '../models/product.dart';
 
 class ProductProvider with ChangeNotifier {

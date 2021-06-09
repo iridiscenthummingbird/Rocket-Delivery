@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helpers/restaurant.dart';
+import 'package:rocket_delivery/src/services/restaurant.dart';
 import '../models/restaurant.dart';
 
 class RestaurantProvider with ChangeNotifier {
