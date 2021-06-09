@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rocket_delivery/src/models/cart_item.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 
 class CartScreen extends StatefulWidget {
@@ -152,127 +153,64 @@ class _CartScreenState extends State<CartScreen> {
                 child: FlatButton(
                     //TODO: change button
                     onPressed: () {
-                      print(user.userModel.totalCartPrice.toString());
                       if (user.userModel.totalCartPrice == 0) {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                child: Container(
-                                  height: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(
-                                              'Your cart is emty',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            });
+                            builder: (_) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  title: Text("Your cart is empty"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: Text(
+                                          'OK',
+                                          style: TextStyle(color: Colors.red),
+                                        ))
+                                  ],
+                                ));
                       } else {
                         showDialog(
+                            barrierDismissible: false,
                             context: context,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20.0)), //this right here
-                                child: Container(
-                                  height: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'You will be charged \$${52} upon delivery!',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        SizedBox(
-                                          //TODO: change the design of the message box
-                                          width: 320.0,
-                                          child: RaisedButton(
-                                            onPressed: () async {
-                                              // var uuid = Uuid();
-                                              // String id = uuid.v4();
-                                              // _orderServices.createOrder(
-                                              //     userId: user.user.uid,
-                                              //     id: id,
-                                              //     description:
-                                              //         "Some random description",
-                                              //     status: "complete",
-                                              //     totalPrice: user
-                                              //         .userModel.totalCartPrice,
-                                              //     cart: user.userModel.cart);
-                                              // for (CartItemModel cartItem
-                                              //     in user.userModel.cart) {
-                                              //   bool value =
-                                              //       await user.removeFromCart(
-                                              //           cartItem: cartItem);
-                                              //   if (value) {
-                                              //     user.reloadUserModel();
-                                              //     print("Item added to cart");
-                                              //     _key.currentState
-                                              //         .showSnackBar(SnackBar(
-                                              //             content: Text(
-                                              //                 "Removed from Cart!")));
-                                              //   } else {
-                                              //     print("ITEM WAS NOT REMOVED");
-                                              //   }
-                                              // }
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          "Order created!")));
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              "Accept",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            color: const Color(0xFF1BC0C5),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 320.0,
-                                          child: RaisedButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                "Reject",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              color: Colors.red),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            });
+                            builder: (_) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  title: Text(
+                                      "You will be charged \$${user.userModel.totalCartPrice} upon delivery!"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: Text(
+                                          'Reject',
+                                          style:
+                                              TextStyle(color: Colors.black87),
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          for (CartItemModel cartItem
+                                              in user.userModel.cart) {
+                                            bool value =
+                                                await user.removeFromCart(
+                                                    cartItem: cartItem);
+                                            if (value) {
+                                              user.reloadUserModel();
+                                            }
+                                          }
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text("Order created!")));
+                                          Navigator.pop(context, 'OK');
+                                        },
+                                        child: Text(
+                                          'Accept',
+                                          style: TextStyle(color: Colors.red),
+                                        )),
+                                  ],
+                                ));
                       }
                     },
                     child: Text(
