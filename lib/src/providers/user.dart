@@ -120,8 +120,6 @@ class UserProvider with ChangeNotifier {
       };
 
       CartItemModel item = CartItemModel.fromMap(cartItem);
-      print(product.price.toString());
-      print(userModel.totalCartPrice.toString());
       _userService.addToCart(userId: _user.uid, cartItem: item);
 
       return true;

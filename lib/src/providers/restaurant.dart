@@ -23,9 +23,9 @@ class RestaurantProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future search({String name})async{
-  //   searchedRestaurants = await _restaurantServices.searchRestaurant(restaurantName: name);
-  //   print("RESTOS ARE: ${searchedRestaurants.length}");
-  //   notifyListeners();
-  // }
+  Future search({String name}) async {
+    searchedRestaurants =
+        await _restaurantServices.searchRestaurant(restaurantName: name);
+    notifyListeners();
+  }
 }

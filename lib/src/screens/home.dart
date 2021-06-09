@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/providers/category.dart';
+import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/providers/restaurant.dart';
+import 'package:rocket_delivery/src/providers/search.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/cart.dart';
 import 'package:rocket_delivery/src/screens/category.dart';
 import 'package:rocket_delivery/src/screens/orders.dart';
+import 'package:rocket_delivery/src/screens/product_search.dart';
 import 'package:rocket_delivery/src/screens/restaurant.dart';
+import 'package:rocket_delivery/src/screens/restaurant_search.dart';
 import 'package:rocket_delivery/src/services/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/category.dart';
 import 'package:rocket_delivery/src/widgets/featured_products.dart';
@@ -17,13 +21,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
+    final searcher = Provider.of<SearchProvider>(context);
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final categoryProvider = Provider.of<CategoryProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
           body: SafeArea(
-            //TODO: Is loading
             child: ListView(
               children: [
                 Container(
@@ -48,16 +53,14 @@ class HomeScreen extends StatelessWidget {
                         title: TextField(
                           textInputAction: TextInputAction.search,
                           onSubmitted: (pattern) async {
-                            // app.changeLoading();
-                            // if (app.search == SearchBy.PRODUCTS) {
-                            //   await productProvider.search(
-                            //       productName: pattern);
-                            //   changeScreen(context, ProductSearchScreen());
-                            // } else {
-                            //   await restaurantProvider.search(name: pattern);
-                            //   changeScreen(context, RestaurantsSearchScreen());
-                            // }
-                            // app.changeLoading();
+                            if (searcher.search == SearchBy.Products) {
+                              await productProvider.search(
+                                  productName: pattern);
+                              changeScreen(context, ProductSearchScreen());
+                            } else {
+                              await restaurantProvider.search(name: pattern);
+                              changeScreen(context, RestaurantsSearchScreen());
+                            }
                           },
                           decoration: InputDecoration(
                             hintText: "Find food and restaurant",
@@ -77,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.grey, fontWeight: FontWeight.w300),
                     ),
                     DropdownButton<String>(
-                        value: "Products", //app.filterBy,
+                        value: searcher.filterBy,
                         style: TextStyle(
                             color: Colors.red, fontWeight: FontWeight.w300),
                         icon: Icon(
@@ -86,11 +89,13 @@ class HomeScreen extends StatelessWidget {
                         ),
                         elevation: 0,
                         onChanged: (value) {
-                          // if (value == "Products") {
-                          //   app.changeSearchBy(newSearchBy: SearchBy.PRODUCTS);
-                          // } else {
-                          //   app.changeSearchBy(newSearchBy: SearchBy.RESTAURANTS);
-                          // }
+                          if (value == "Products") {
+                            searcher.changeSearchBy(
+                                newSearchBy: SearchBy.Products);
+                          } else {
+                            searcher.changeSearchBy(
+                                newSearchBy: SearchBy.Restaurants);
+                          }
                         },
                         items: <String>["Products", "Restaurants"]
                             .map<DropdownMenuItem<String>>((String value) {
@@ -113,10 +118,6 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () async {
-                            // await productProvider.loadProductsByCategory(
-                            //       categoryName:
-                            //           categoryProvider.categories[index].name);
-
                             changeScreen(
                                 context,
                                 CategoryScreen(
@@ -158,12 +159,6 @@ class HomeScreen extends StatelessWidget {
                   children: restaurantProvider.restaurants
                       .map((item) => GestureDetector(
                             onTap: () async {
-                              // app.changeLoading();
-
-                              // await productProvider.loadProductsByRestaurant(
-                              //     restaurantId: item.id);
-                              // app.changeLoading();
-
                               changeScreen(
                                   context,
                                   RestaurantScreen(
