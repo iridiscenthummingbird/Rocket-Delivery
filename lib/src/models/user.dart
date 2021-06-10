@@ -12,6 +12,7 @@ class UserModel {
   double totalCartPrice;
 
   List<Rate> rates;
+  List<Rate> ratesRest;
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data();
@@ -21,6 +22,7 @@ class UserModel {
     totalCartPrice =
         data["cart"] == null ? 0 : getTotalPrice(cart: data["cart"]);
     rates = _getRates(data["rates"]);
+    ratesRest = _getRates(data["ratesRest"]);
   }
 
   double getTotalPrice({List cart}) {

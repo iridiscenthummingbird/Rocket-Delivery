@@ -5,6 +5,7 @@ import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/services/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
 import 'package:rocket_delivery/src/widgets/product.dart';
+import 'package:rocket_delivery/src/widgets/row_stars_rest.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'details.dart';
@@ -157,49 +158,9 @@ class RestaurantScreen extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 50, right: 50, top: 5, bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.star,
-                      color: Colors.yellow[900],
-                      size: 24,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.star,
-                      color: Colors.yellow[900],
-                      size: 24,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.star,
-                      color: Colors.yellow[900],
-                      size: 24,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.star,
-                      color: Colors.grey,
-                      size: 24,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.star,
-                      color: Colors.grey,
-                      size: 24,
-                    ),
-                    onPressed: () {}),
-              ],
-            ),
+          RowOfStarsRest(restaurant: restaurantModel),
+          SizedBox(
+            height: 15,
           ),
           Column(
             children: productProvider.productsByRestaurant
