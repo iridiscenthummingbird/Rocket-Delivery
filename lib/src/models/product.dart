@@ -10,6 +10,7 @@ class ProductModel {
   String _description;
   double _rating;
   double _price;
+  List<int> _rates;
 
   String get id => _id;
   String get name => _name;
@@ -20,6 +21,7 @@ class ProductModel {
   String get image => _image;
   double get rating => _rating;
   double get price => _price;
+  List<int> get rates => _rates;
 
   ProductModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data();
@@ -29,8 +31,17 @@ class ProductModel {
     _restaurantId = data['restaurantId'];
     _category = data['category'];
     _description = data['description'];
-    _price = double.parse(data['price']);
-    _rating = double.parse(data['rating']);
+    _price = double.parse(data['price'].toString());
+    _rating = double.parse(data['rating'].toString());
     _name = data['name'];
+    _rates = _getList(data['rates']);
+  }
+
+  List<int> _getList(List rates) {
+    List<int> tmp = [];
+    rates.forEach((element) {
+      tmp.add(element);
+    });
+    return tmp;
   }
 }

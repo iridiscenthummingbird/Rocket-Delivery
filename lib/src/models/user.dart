@@ -11,6 +11,8 @@ class UserModel {
   List<CartItemModel> cart;
   double totalCartPrice;
 
+  List<Rate> rates;
+
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data();
     _name = data['name'];
@@ -18,6 +20,7 @@ class UserModel {
     cart = _convertCartItems(data["cart"]) ?? [];
     totalCartPrice =
         data["cart"] == null ? 0 : getTotalPrice(cart: data["cart"]);
+    rates = _getRates(data["rates"]);
   }
 
   double getTotalPrice({List cart}) {
@@ -37,5 +40,26 @@ class UserModel {
       convertedCart.add(CartItemModel.fromMap(cartItem));
     }
     return convertedCart;
+  }
+
+  List<Rate> _getRates(List rates) {
+    List<Rate> tmp = [];
+    for (Map rate in rates) {
+      tmp.add(Rate.fromMap(rate));
+    }
+    return tmp;
+  }
+}
+
+class Rate {
+  String _id;
+  int _rate;
+
+  String get id => _id;
+  int get rate => _rate;
+
+  Rate.fromMap(Map data) {
+    _id = data["id"];
+    _rate = data["rate"];
   }
 }

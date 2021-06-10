@@ -4,6 +4,7 @@ import 'package:rocket_delivery/src/models/product.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 import 'package:rocket_delivery/src/screens/cart.dart';
 import 'package:rocket_delivery/src/services/screen_navigation.dart';
+import 'package:rocket_delivery/src/widgets/row_starts.dart';
 
 class Details extends StatefulWidget {
   final ProductModel product;
@@ -140,6 +141,15 @@ class _DetailsState extends State<Details> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Rate it",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
+            RowOfStars(product: widget.product)
           ],
         ),
       ),

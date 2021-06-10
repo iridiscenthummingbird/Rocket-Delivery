@@ -150,27 +150,56 @@ class RestaurantScreen extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
-
-//              open & book section
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Text(
-                "Open",
-                style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400),
-              ),
-              Container(
-                  child: FlatButton.icon(
-                      //TODO: change button
-                      onPressed: () {},
-                      icon: Icon(Icons.restaurant_menu),
-                      label: Text("Book Now")))
-            ],
+          Text(
+            "Rate it",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 18),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 50, right: 50, top: 5, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.yellow[900],
+                      size: 24,
+                    ),
+                    onPressed: () {}),
+                IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.yellow[900],
+                      size: 24,
+                    ),
+                    onPressed: () {}),
+                IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.yellow[900],
+                      size: 24,
+                    ),
+                    onPressed: () {}),
+                IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.grey,
+                      size: 24,
+                    ),
+                    onPressed: () {}),
+                IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: Colors.grey,
+                      size: 24,
+                    ),
+                    onPressed: () {}),
+              ],
+            ),
           ),
           Column(
             children: productProvider.productsByRestaurant
