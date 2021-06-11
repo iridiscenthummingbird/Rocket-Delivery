@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/models/restaurant.dart';
+import 'package:rocket_delivery/src/providers/restaurant.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 
 class RowOfStarsRest extends StatelessWidget {
@@ -10,7 +11,7 @@ class RowOfStarsRest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
-
+    final restaurantProvider = Provider.of<RestaurantProvider>(context);
     int search(String id) {
       int val = 0;
       user.userModel.ratesRest.forEach((element) {
@@ -18,6 +19,7 @@ class RowOfStarsRest extends StatelessWidget {
           val = element.rate;
         }
       });
+      print(val);
       return val;
     }
 
@@ -40,7 +42,25 @@ class RowOfStarsRest extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onPressed: () {
-                    print(search(restaurant.id));
+                    bool check = false;
+                    user.userModel.ratesRest.forEach((element) {
+                      if (element.id == restaurant.id &&
+                          element.rate != index + 1) {
+                        check = true;
+                      }
+                    });
+                    int lastRate = search(restaurant.id);
+                    if (lastRate == 0 || check) {
+                      user
+                          .updateRestRate(index + 1, restaurant.id)
+                          .then((value) {
+                        restaurantProvider.updateProductRate(
+                            index + 1, restaurant.id,
+                            last: value == false ? lastRate : 0);
+                      });
+                      user.reloadUserModel();
+                      restaurantProvider.loadRestaurants();
+                    }
                   });
             }),
       ),

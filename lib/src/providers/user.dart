@@ -166,7 +166,32 @@ class UserProvider with ChangeNotifier {
 
       notifyListeners();
       if (check) {
-        print('false');
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> updateRestRate(int rate, String id) async {
+    try {
+      List<Map> list = [];
+      bool check = false;
+      _userModel.rates.forEach((element) {
+        if (element.id == id) {
+          check = true;
+        } else {
+          list.add(element.toMap());
+        }
+      });
+      list.add({"id": id, "rate": rate});
+
+      _firestore.collection("users").doc(user.uid).update({"ratesRest": list});
+
+      notifyListeners();
+      if (check) {
         return false;
       }
       return true;

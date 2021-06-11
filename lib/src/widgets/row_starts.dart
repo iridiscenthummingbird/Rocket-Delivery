@@ -54,7 +54,6 @@ class RowOfStars extends StatelessWidget {
                       user
                           .updateProductRate(index + 1, product.id)
                           .then((value) {
-                        print("lastRate: " + lastRate.toString());
                         productProvider.updateProductRate(index + 1, product.id,
                             last: value == false ? lastRate : 0);
                       });
