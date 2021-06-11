@@ -19,7 +19,6 @@ class RowOfStarsRest extends StatelessWidget {
           val = element.rate;
         }
       });
-      print(val);
       return val;
     }
 

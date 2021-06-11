@@ -4,6 +4,7 @@ import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/screens/details.dart';
 import 'package:rocket_delivery/src/services/screen_navigation.dart';
 import 'package:rocket_delivery/src/widgets/loading.dart';
+import 'package:rocket_delivery/src/widgets/product_start.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class Featured extends StatelessWidget {
@@ -92,31 +93,10 @@ class Featured extends StatelessWidget {
                                 SizedBox(
                                   width: 2,
                                 ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.red,
-                                  size: 16,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.red,
-                                  size: 16,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.red,
-                                  size: 16,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.red,
-                                  size: 16,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.grey,
-                                  size: 16,
-                                ),
+                                ProductStarsWidget(
+                                    numberOfStars: productProvider
+                                        .products[index].rating
+                                        .toInt())
                               ],
                             ),
                             Padding(
