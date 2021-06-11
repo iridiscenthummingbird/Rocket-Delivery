@@ -148,4 +148,31 @@ class UserProvider with ChangeNotifier {
     orders = await _orderServices.getUserOrders(userId: _user.uid);
     notifyListeners();
   }
+
+  Future<bool> updateProductRate(int rate, String id) async {
+    try {
+      List<Map> list = [];
+      bool check = false;
+      _userModel.rates.forEach((element) {
+        if (element.id == id) {
+          check = true;
+        } else {
+          list.add(element.toMap());
+        }
+      });
+      list.add({"id": id, "rate": rate});
+
+      _firestore.collection("users").doc(user.uid).update({"rates": list});
+
+      notifyListeners();
+      if (check) {
+        print('false');
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

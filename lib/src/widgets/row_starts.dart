@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/models/product.dart';
+import 'package:rocket_delivery/src/models/user.dart';
+import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 
 class RowOfStars extends StatelessWidget {
@@ -10,7 +12,7 @@ class RowOfStars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
-
+    final productProvider = Provider.of<ProductProvider>(context);
     int search(String id) {
       int val = 0;
       user.userModel.rates.forEach((element) {
@@ -40,7 +42,25 @@ class RowOfStars extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onPressed: () {
-                    print(search(product.id));
+                    bool check = false;
+                    user.userModel.rates.forEach((element) {
+                      if (element.id == product.id &&
+                          element.rate != index + 1) {
+                        check = true;
+                      }
+                    });
+                    int lastRate = search(product.id);
+                    if (lastRate == 0 || check) {
+                      user
+                          .updateProductRate(index + 1, product.id)
+                          .then((value) {
+                        print("lastRate: " + lastRate.toString());
+                        productProvider.updateProductRate(index + 1, product.id,
+                            last: value == false ? lastRate : 0);
+                      });
+                      user.reloadUserModel();
+                      productProvider.loadProducts();
+                    }
                   });
             }),
       ),

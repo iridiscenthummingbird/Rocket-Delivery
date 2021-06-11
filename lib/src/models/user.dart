@@ -64,4 +64,5 @@ class Rate {
     _id = data["id"];
     _rate = data["rate"];
   }
+  Map toMap() => {"id": _id, "rate": _rate};
 }
