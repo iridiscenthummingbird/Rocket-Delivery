@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rocket_delivery/src/models/product.dart';
-import 'package:rocket_delivery/src/models/user.dart';
 import 'package:rocket_delivery/src/providers/product.dart';
 import 'package:rocket_delivery/src/providers/user.dart';
 

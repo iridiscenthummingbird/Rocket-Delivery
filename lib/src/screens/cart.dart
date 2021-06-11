@@ -154,8 +154,7 @@ class _CartScreenState extends State<CartScreen> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20), color: Colors.red),
-                child: FlatButton(
-                    //TODO: change button
+                child: TextButton(
                     onPressed: () {
                       if (user.userModel.totalCartPrice == 0) {
                         showDialog(

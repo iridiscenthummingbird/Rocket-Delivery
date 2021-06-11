@@ -59,9 +59,10 @@ class UserProvider with ChangeNotifier {
     } catch (e) {
       _status = Status.Unauthenticated;
       notifyListeners();
-      //TODO: cut the message
+      String message = e.toString();
+      message = message.replaceAll(RegExp(r'\[.*?\]'), "");
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+          .showSnackBar(SnackBar(content: Text(message)));
       return false;
     }
   }
@@ -85,8 +86,10 @@ class UserProvider with ChangeNotifier {
     } catch (e) {
       _status = Status.Unauthenticated;
       notifyListeners();
+      String message = e.toString();
+      message = message.replaceAll(RegExp(r'\[.*?\]'), "");
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+          .showSnackBar(SnackBar(content: Text(message)));
       return false;
     }
   }
